@@ -4,10 +4,10 @@ import { voteAnecdote } from '../reducers/anecdoteReducer'
 const AnecdoteList = () => {
   const anecdotes = useSelector(state => {
     const filter = state.filter
-    if (filter === '' ) {
-      return state.anecdote
+    if (filter === '') {
+      return state.anecdotes
     } else {
-      return state.anecdote.filter(a => a.content.includes(filter))
+      return state.anecdotes.filter(a => a.content.includes(filter))
     }
   })
   const dispatch = useDispatch()
