@@ -14,10 +14,11 @@ const AnecdoteList = () => {
   const dispatch = useDispatch()
   const arrayAnecdotes = [...anecdotes]
 
-  const Vote = (id) => {
+  const Vote = async (id) => {
     console.log('vote', id)
     const content = arrayAnecdotes.find(a => a.id === id).content
     dispatch(voteAnecdote(id))
+
     dispatch(setNotification(`you voted '${content}'`))
     setTimeout(() => {
       dispatch(removeNotification())
