@@ -4,9 +4,11 @@ import { createAnecdote } from '../requests'
 const AnecdoteForm = () => {
   const queryClient = useQueryClient()
 
-  const newNoteMutation = useMutation(createAnecdote, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('anecdotes')
+  const newAnecdoteMutation = useMutation(createAnecdote, {
+    onSuccess: (newAnecdote) => {
+      const anecdotes = queryClient.getQueryData('anecdotes')
+      queryClient.setQueryData('anecdotes', anecdotes.concat(newAnecdote))
+      // queryClient.invalidateQueries('anecdotes')
     },
   })
 
@@ -15,7 +17,7 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     console.log(content)
-    newNoteMutation.mutate({ content, votes: 0 })
+    newAnecdoteMutation.mutate({ content, votes: 0 })
   }
 
   return (
