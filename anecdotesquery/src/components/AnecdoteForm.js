@@ -4,16 +4,17 @@ import { useNotificationDispatch } from '../NotificationContext'
 
 const AnecdoteForm = () => {
   const queryClient = useQueryClient()
-
+  const dispatch = useNotificationDispatch()
   const newAnecdoteMutation = useMutation(createAnecdote, {
     onSuccess: (newAnecdote) => {
       const anecdotes = queryClient.getQueryData('anecdotes')
       queryClient.setQueryData('anecdotes', anecdotes.concat(newAnecdote))
       // queryClient.invalidateQueries('anecdotes')
     },
+    onError: () => {
+      dispatch({ type: 'ERROR' })
+    }
   })
-
-  const dispatch = useNotificationDispatch()
 
   const onCreate = async (event) => {
     event.preventDefault()

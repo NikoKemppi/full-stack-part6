@@ -6,13 +6,12 @@ import { useNotificationDispatch } from './NotificationContext'
 
 const App = () => {
   const queryClient = useQueryClient()
+  const dispatch = useNotificationDispatch()
   const updateAnecdoteMutation = useMutation(updateAnecdote, {
     onSuccess: () => {
       queryClient.invalidateQueries('anecdotes')
-    },
+    }
   })
-
-  const dispatch = useNotificationDispatch()
 
   const handleVote = (anecdote) => {
     console.log('vote')
